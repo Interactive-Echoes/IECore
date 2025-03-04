@@ -96,7 +96,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Vulkan::Vulkan glfw stb)
 target_include_directories(${PROJECT_NAME} PUBLIC "." ${IMGUI_DIR})
 set(IECore_HEADER_FILES "IECore.h")
 set_property(TARGET ${PROJECT_NAME} PROPERTY PUBLIC_HEADER ${IECore_HEADER_FILES})
-target_compile_definitions(${PROJECT_NAME} PRIVATE IERESOURCES_DIR="${CMAKE_INSTALL_PREFIX}/IE/Resources" GLFW_INCLUDE_NONE)
+target_compile_definitions(${PROJECT_NAME} PUBLIC IERESOURCES_DIR="${CMAKE_INSTALL_PREFIX}/IE/Resources" GLFW_INCLUDE_NONE)
 
 message("Linking ${CMAKE_SYSTEM_NAME} specific libraries")
 if(WIN32)
