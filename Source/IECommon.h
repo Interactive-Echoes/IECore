@@ -90,8 +90,8 @@ public:
     IEResult(IEResult&& other) = default;
 
 #if ENABLE_IE_RESULT_LOGGING
-    explicit IEResult(const IEResult::Type& _Type = Type::Unknown, const std::string _Message = std::string(), const std::source_location& CallerContext = std::source_location::current())
-        : Type(_Type), Message(_Message), CallerContextFuncName(CallerContext.function_name())
+    explicit IEResult(const IEResult::Type& _Type = Type::Unknown, const std::string _Message = std::string(), const std::source_location& _CallerContext = std::source_location::current())
+        : Type(_Type), Message(_Message), CallerContext(_CallerContext)
     {}
 #else
     explicit IEResult(const IEResult::Type& _Type, const std::string _Message = std::string())
@@ -99,7 +99,6 @@ public:
     {}
 #endif
 
-    IEResult& operator=(const IEResult& OtherResult);
     bool operator==(const IEResult& OtherResult) const;
     bool operator!=(const IEResult& OtherResult) const;
     operator bool() const;
@@ -109,5 +108,5 @@ public:
     std::string Message = {};
 
 private:
-    const char* CallerContextFuncName = nullptr;
+    const std::source_location CallerContext;
 };

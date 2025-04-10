@@ -56,16 +56,6 @@ namespace Private
     }
 }
 
-IEResult& IEResult::operator=(const IEResult& OtherResult)
-{
-    if (this != &OtherResult)
-    {
-        Type = OtherResult.Type;
-        Message = OtherResult.Message;
-    }
-    return *this;
-}
-
 bool IEResult::operator==(const IEResult& OtherResult) const
 {
     return this->Type == OtherResult.Type;
@@ -81,21 +71,21 @@ IEResult::operator bool() const
     if (static_cast<int16_t>(Type) <= 0)
     {
 #if ENABLE_IE_RESULT_LOGGING
-        Private::IELog(-1, CallerContextFuncName, Message.c_str());
+        Private::IELog(-1, CallerContext.function_name(), Message.c_str());
 #endif
         abort();
     }
     else if (static_cast<int16_t>(Type) > 1)
     {
 #if ENABLE_IE_RESULT_LOGGING
-        Private::IELog(2, CallerContextFuncName, Message.c_str());
+        Private::IELog(2, CallerContext.function_name(), Message.c_str());
 #endif
         return false;
     }
     else // this->Type == IEResult::Type::Success
     {
 #if ENABLE_IE_RESULT_LOGGING
-        Private::IELog(1, CallerContextFuncName, Message.c_str());
+        Private::IELog(1, CallerContext.function_name(), Message.c_str());
 #endif
         return true;
     }
